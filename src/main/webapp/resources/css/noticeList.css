@@ -1,0 +1,48 @@
+@charset "UTF-8";
+
+/* 배너 위아래 크기 고정 */
+#bgInfoSubtle{
+   height : 125px;
+   background: linear-gradient(45deg, #d5f3f2, #e0f6fb)!important;
+}
+
+/* 배너 안에 글씨 위치 고정 */
+#subTitlePosition{
+   height: 100%
+}
+
+.ck-editor__editable { height: 400px; }
+.ck-content { font-size: 12px; }
+
+#insert-btn-area {
+   text-align: right;
+}
+
+.form-control {
+   width: 350px;
+}
+
+#pagingArea {
+	text-align: -webkit-right;
+    margin-top: 30;
+}
+
+.active > .page-link {
+	background-color: #01c0c8;
+	border-color: #eff0f3;
+}
+
+
+#up-table-group{
+    margin-bottom: 30px;
+}
+#frm{
+    margin: 0;
+}
+
+.col-form-label {
+   margin-bottom: 20px;
+}
+.form-control {
+   width: 50%;
+}

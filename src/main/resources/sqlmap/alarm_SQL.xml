@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.or.onesome.alarm.mapper.AlarmMapper">
+
+	<resultMap type="alarmVO" id="alarmMap">
+		<result property="alarmNo" column="ALARM_NO"/>
+		<result property="alarmRcverId" column="ALARM_RCVER_NO"/>
+		<result property="alarmConts" column="ALARM_CONTS"/>
+		<result property="alarmChecked" column="ALARM_CHECKED"/>
+		<result property="movUrl" column="MOV_URL"/>
+	</resultMap>
+
+	<select id="selectAlarm" parameterType="String" resultMap="alarmMap">
+		SELECT
+		    ALARM_NO
+		  , ALARM_RCVER_ID
+		  , ALARM_CONTS
+		  , ALARM_CHECKED
+		  , MOV_URL
+		FROM
+		    ALARM
+		WHERE
+			ALARM_RCVER_ID = #{alarmRcverId}
+		AND
+			ALARM_CHECKED = 'N'
+	</select>
+	
+	<insert id="saveAlarm" parameterType="alarmVO">
+		<selectKey resultType="int" order="BEFORE" keyProperty="alarmNo">
+			SELECT ALARM_SEQ.NEXTVAL AS alarmNo FROM DUAL
+		</selectKey>
+		INSERT INTO alarm (
+		    alarm_no,
+		    alarm_rcver_id,
+		    alarm_conts,
+		    alarm_checked,
+		    mov_url
+		) VALUES (
+		    #{alarmNo},
+		    #{alarmRcverId},
+		    #{alarmConts},
+		    'N',
+		    #{movUrl}
+		    
+		)
+	</insert>
+	
+	<select id="getFrcsInfo" parameterType="franchiseVO" resultMap="FrcsMap">
+		SELECT 
+		        F.FRCS_NO
+		       ,F.FRCS_NM
+		       ,F.FRCS_OWNR_NO
+		       ,FO.FRCS_OWNR_EMAIL
+		FROM FRANCHISE F, FRCS_OWNER FO
+		WHERE F.FRCS_NO = #{frcsNo}
+		AND F.FRCS_OWNR_NO = FO.FRCS_OWNR_NO
+	</select>
+	
+	<update id="updateAlarmChecked" parameterType="alarmVO">
+		UPDATE ALARM
+		SET
+		    ALARM_CHECKED = 'Y'
+		WHERE
+		    ALARM_NO = #{alarmNo}
+	</update>
+	
+<resultMap type="franchiseVO" id="FrcsMap">
+	<result property="frcsNo" column="FRCS_NO"/>
+	<result property="frcsNm" column="FRCS_NM"/>
+	<result property="frcsStsCd" column="FRCS_STS_CD"/>
+	<result property="frcsRgstDt" column="FRCS_RGST_DT"/>
+	<result property="frcsEndDt" column="FRCS_END_DT"/>
+	<result property="frcsPostNo" column="FRCS_POST_NO"/>
+	<result property="frcsAddr" column="FRCS_ADDR"/>
+	<result property="frcsDtlAddr" column="FRCS_DTL_ADDR"/>
+	<result property="frcsBsnsStrtTm" column="FRCS_BSNS_STRT_TM"/>
+	<result property="frcsBsnsEndTm" column="FRCS_BSNS_END_TM"/>
+	<result property="frcsCtrtCnclsDt" column="FRCS_CTRT_CNCLS_DT"/>
+	<result property="frcsExptCmplDt" column="FRCS_EXPT_CMPL_DT"/>
+	<result property="frcsFnlInspDt" column="FRCS_FNL_INSP_DT"/>
+	<result property="frcsOpngDt" column="FRCS_OPNG_DT"/>
+	<result property="frcsCpctPsn" column="FRCS_CPCT_PSN"/>
+	<result property="frcsOwnrNo" column="FRCS_OWNR_NO"/>
+	<result property="frcsRegionCd" column="FRCS_REGION_CD"/>
+	<result property="frcsTel" column="FRCS_TEL"/>
+	<result property="rnum" column="rnum"/>
+	
+	<association property="franchiseOwnerVO" resultMap="frcsOWMap"></association>
+</resultMap>
+
+<!--가맹점주 -->
+<resultMap type="frcsOwVO" id="frcsOWMap">
+    <result property="frcsOwnrNo" column="FRCS_OWNR_NO"/>
+    <result property="frcsOwnrEmail" column="FRCS_OWNR_EMAIL"/>
+    <result property="frcsOwnrPw" column="FRCS_OWNR_PW"/>
+    <result property="frcsOwnrNm" column="FRCS_OWNR_NM"/>
+    <result property="frcsOwnrBrdt" column="FRCS_OWNR_BRDT"/>
+    <result property="frcsOwnrTel" column="FRCS_OWNR_TEL"/>
+    <result property="frcsOwnrZip" column="FRCS_OWNR_ZIP"/>
+    <result property="frcsOwnrAddr" column="FRCS_OWNR_ADDR"/>
+    <result property="frcsOwnrDtlAddr" column="FRCS_OWNR_DTL_ADDR"/>
+    <result property="frcsOwnrJoinDt" column="FRCS_OWNR_JOIN_DT"/>
+    <result property="enabled" column="ENABLED"/>
+    
+</resultMap>
+</mapper>
+
+
+
+
+
+
+
