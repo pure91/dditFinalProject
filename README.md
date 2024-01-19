@@ -1,2 +1,2 @@
-# 최종프로젝트
-#### 카페 프랜차이즈 ERP 시스템
+
+![header](https://capsule-render.vercel.app/api?type=Venom&text=최종%20프로젝트&height=150&color=auto)
